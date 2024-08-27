@@ -1,51 +1,58 @@
-import { states, departments } from '../data/formCreationData'
-import { Button, DatePicker, Input, Select, SelectItem } from '@nextui-org/react'
+import { formSchema, defaultFormValues } from '@/data/formSchema'
+import { states, departments } from '@/data/formCreationData'
+
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+import { Button } from "@/components/ui/button"
+import { Datepicker } from '@/components/Datepicker'
+import { Form } from "@/components/ui/form"
+import { InputField } from '@/components/InputField'
+import { InputSelect } from '@/components/InputSelect'
+
 
 export const FormEmployes = () => {
-    const handleStateSelect = (e) => {
-        // console.log('e.target.value: ', e.target.value)
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: defaultFormValues
+    })
+    
+    const dateRange = {
+        fromyear: new Date().getFullYear() - 50,
+        toyear: new Date().getFullYear() + 50
     }
 
-    const handleDepartmentSelect = (e) => {
-        // console.log('e.target.value: ', e.target.value)
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        console.log("SUCCESS", formData)
-        const firstname = formData.get("firstname")
+    function onSubmit(data) {
+        console.log('data.firstname: ', data.firstname)
+        console.log('data.lastname: ', data.lastname)
+        console.log('data.dateofbirth: ', data.dateofbirth.toLocaleDateString())
+        console.log('data.startdate: ', data.startdate.toLocaleDateString())
+        console.log('data.street: ', data.street)
+        console.log('data.city: ', data.city)
+        console.log('data.state: ', data.state)
+        console.log('data.zipcode: ', data.zipcode)
+        console.log('data.department: ', data.department)
     }
 
     return (
         <>
-            <form onSubmit={(e) => onSubmit(e)} className='w-full flex flex-col gap-8'>
-                <Input name="firstname" type="firstname" label="Firstname" variant="bordered" />  
-                <Input name="lastname" type="lastname" label="Lastname" variant="bordered" />
-                <DatePicker name="birthdate" label="Birth date" className="datepicker" />
-                <DatePicker name="startdate" label="Start date" className="datepicker" />
-                <fieldset>
-                    <legend>Address</legend>
-                    <Input name="street" type="street" label="Street" variant="bordered" />
-                    <Input name="city" type="city" label="City" variant="bordered" />
-                    <Select name="state" label="Select a state" onChange={handleStateSelect} >
-                        {states.map((state) => (
-                            <SelectItem key={state.abbreviation}>
-                                {state.label}
-                            </SelectItem>
-                        ))}
-                    </Select>
-                    <Input name="zipcode" type="number" label="Zipcode" />
-                </fieldset>
-                <Select name="department" label="Select a department" onChange={handleDepartmentSelect} >
-                    {departments.map((department) => (
-                        <SelectItem key={department}>
-                            {department}
-                        </SelectItem>
-                    ))}
-                </Select>
-                <Button type='submit' className='min-w-[calc(100%/3)] self-end' color="primary" variant='ghost'>Save</Button>
-            </form>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-8">
+                    <InputField form={form} label="Firstname" name="firstname" />
+                    <InputField form={form} label="Lastname" name="lastname" />
+                    <Datepicker form={form} label="Date of birth" name="dateofbirth" daterange={dateRange} />
+                    <Datepicker form={form} label="Start date" name="startdate" daterange={dateRange} />
+                    <fieldset>
+                        <legend>Address</legend>
+                        <InputField form={form} label="Street" name="street" />
+                        <InputField form={form} label="City" name="city" />
+                        <InputSelect form={form} label="State" name="state" data={states} />
+                        <InputField form={form} label="Zipcode" name="zipcode" placeholder ="01234-5678" />
+                    </fieldset>
+                    <InputSelect form={form} label="Department" name="department" data={departments} />
+                    <Button type="submit" variant="formSubmit">Submit</Button>
+                </form>
+            </Form>
         </>
-    )
+      )
 }

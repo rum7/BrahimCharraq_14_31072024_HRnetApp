@@ -4,8 +4,7 @@
     --text-light: rgba(102, 103, 99, 0.8);
     --green-dark: #73852a;
     --green-light: #98ac3b;
-  }
-
+}
 #root {
     min-height: 100vh;
     padding: 3rem 1rem;
@@ -13,17 +12,12 @@
     justify-content: center;
     align-items: center;
 }
-
 body {
     min-height: 100vh;
 }
 
-div[data-overlay-container] {
-    width: 100%;
-}
-
 .form__container {
-    max-width: 480px;
+    width: 100%;
     margin: auto;
     padding: 1rem;
     border-radius: 0.75rem;
@@ -35,7 +29,6 @@ div[data-overlay-container] {
         0px 100px 80px rgba(0, 0, 0, 0.04)
     ;
 }
-
 form {
     .datepicker span {
         text-align: left;
