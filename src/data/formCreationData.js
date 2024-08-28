@@ -1,3 +1,11 @@
+export const departments = [
+    "Sales",
+    "Marketing",
+    "Engineering",
+    "Human Resources",
+    "Legal"
+]
+
 export const states = [
     {
         "label": "Alabama",
@@ -235,12 +243,4 @@ export const states = [
         "label": "Wyoming",
         "abbreviation": "WY"
     }
-]
-
-export const departments = [
-    "Sales",
-    "Marketing",
-    "Engineering",
-    "Human Resources",
-    "Legal"
 ]

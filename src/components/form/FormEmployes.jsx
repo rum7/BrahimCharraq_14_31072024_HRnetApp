@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/components/ui/button"
-import { Datepicker } from '@/components/Datepicker'
 import { Form } from "@/components/ui/form"
-import { InputField } from '@/components/InputField'
-import { InputSelect } from '@/components/InputSelect'
+import { Datepicker } from '@/components/form/Datepicker'
+import { InputField } from '@/components/form/InputField'
+import { InputSelect } from '@/components/form/InputSelect'
 
 
 export const FormEmployes = () => {
