@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
@@ -24,9 +25,19 @@ export const DataTable = ({ columns, data }) => {
         getPaginationRowModel: getPaginationRowModel(),
     })
 
+    const handleManualPagination = (e) => {
+        const pageToGo = e.target.value
+
+        if (isNaN(pageToGo)) return table.setPageIndex(table.getState().pagination.pageIndex)
+        if (pageToGo > table.getPageCount() - 1) return table.setPageIndex(table.getPageCount() - 1)
+        if (pageToGo < table.getPageCount() - 1) return table.setPageIndex(0)
+        
+        return table.setPageIndex(pageToGo - 1)
+    }
+
     return (
         <>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center jus space-x-2">
                 <p className="text-sm font-medium">Rows per page</p>
                 <Select
                     value={`${table.getState().pagination.pageSize}`}
@@ -45,8 +56,9 @@ export const DataTable = ({ columns, data }) => {
                         ))}
                     </SelectContent>
                 </Select>
+                <p className="flex-1 text-end text-sm text-muted-foreground">Total : {table.getFilteredRowModel().rows.length} employees</p>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border my-4">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -86,13 +98,12 @@ export const DataTable = ({ columns, data }) => {
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-between px-2">
+            <div className="flex items-center justify-between px-0">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {/* {table.getFilteredSelectedRowModel().rows.length} of{" "} */}
-                    Total : {table.getFilteredRowModel().rows.length} employees.
+                    <p className="hidden lg:block">Total : {table.getFilteredRowModel().rows.length} employees</p>
                 </div>
                 <div className="flex items-center space-x-6 lg:space-x-8">
-                    <div className="flex items-center space-x-2">
+                    <div className="hidden lg:flex items-center space-x-2">
                         <p className="text-sm font-medium">Rows per page</p>
                         <Select
                             value={`${table.getState().pagination.pageSize}`}
@@ -112,8 +123,16 @@ export const DataTable = ({ columns, data }) => {
                             </SelectContent>
                         </Select>
                     </div>
-                    <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                            Page {table.getState().pagination.pageIndex + 1} of{" "} {table.getPageCount()}
+                    <div>
+                        <p className="flex items-center gap-2">
+                            Page
+                            <Input 
+                                className="h-8 w-[45px] text-center" 
+                                value={table.getState().pagination.pageIndex + 1}
+                                onChange={handleManualPagination}
+                            /> 
+                            / {table.getPageCount()}
+                        </p>
                     </div>
                     <div className="flex items-center space-x-2">
                         <Button
