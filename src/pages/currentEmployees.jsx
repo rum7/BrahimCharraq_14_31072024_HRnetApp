@@ -15,7 +15,7 @@ export const CurrentEmployees = () => {
                         <h1 className='text-2xl font-bold'>Current employees</h1>
                         {/* <NavLink to='/' className={linkStyles}>home</NavLink> */}
                     </header>
-                <TableEmployees />
+                    <TableEmployees />
                 </main>
                 <NavLink to='/' className={linkStyles}>home</NavLink>
             </div>
