@@ -8,7 +8,7 @@ const linkStyles = 'relative top-[0px] text-xs text-lime-700/50 hover:text-lime-
 export const CurrentEmployees = () => {
     return (
         <>
-            <div className='form__container max-w-[960px] flex flex-col items-center'>
+            <div className='form__container max-w-[1140px] flex flex-col items-center'>
                 <Header />
                 <main className='w-full flex flex-col items-center gap-4'>
                     <header className='w-full flex items-center justify-center px-[.8rem]'>

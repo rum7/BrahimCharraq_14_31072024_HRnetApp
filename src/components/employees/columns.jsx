@@ -1,4 +1,9 @@
 export const columns = [
+    // {
+    //     header: "id",
+    //     accessorKey: "id",
+    //     enableGlobalFilter: false,
+    // },
     {
         header: "Firstname",
         accessorKey: "firstname",
