@@ -22,16 +22,34 @@ export const FormEmployes = () => {
         toyear: new Date().getFullYear() + 50
     }
 
+    // function onSubmit(data) {
+    //     console.log('data.firstname: ', data.firstname)
+    //     console.log('data.lastname: ', data.lastname)
+    //     console.log('data.dateofbirth: ', data.dateofbirth.toLocaleDateString())
+    //     console.log('data.startdate: ', data.startdate.toLocaleDateString())
+    //     console.log('data.street: ', data.street)
+    //     console.log('data.city: ', data.city)
+    //     console.log('data.state: ', data.state)
+    //     console.log('data.zipcode: ', data.zipcode)
+    //     console.log('data.department: ', data.department)
+    // }
+
     function onSubmit(data) {
-        console.log('data.firstname: ', data.firstname)
-        console.log('data.lastname: ', data.lastname)
-        console.log('data.dateofbirth: ', data.dateofbirth.toLocaleDateString())
-        console.log('data.startdate: ', data.startdate.toLocaleDateString())
-        console.log('data.street: ', data.street)
-        console.log('data.city: ', data.city)
-        console.log('data.state: ', data.state)
-        console.log('data.zipcode: ', data.zipcode)
-        console.log('data.department: ', data.department)
+        const newUser = {
+            firstname: data.firstname,
+            lastname: data.lastname,
+            dateofbirth: data.dateofbirth.toLocaleDateString(),
+            startdate: data.startdate.toLocaleDateString(),
+            street: data.street,
+            city: data.city,
+            state: data.state,
+            zipcode: data.zipcode,
+            department: data.department,
+        }
+
+        const existingUsers = JSON.parse(localStorage.getItem('users')) || []
+        const updatedUsers = [...existingUsers, newUser]
+        localStorage.setItem('users', JSON.stringify(updatedUsers))
     }
 
     return (

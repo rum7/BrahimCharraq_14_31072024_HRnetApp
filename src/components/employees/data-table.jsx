@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons"
@@ -11,6 +11,7 @@ import { useState } from "react"
 export const DataTable = ({ columns, data }) => {
     const [columnFilters, setColumnFilters] = useState([])
     const [globalFilter, setGlobalFilter] = useState('')
+    const [sorting, setSorting] = useState([])
     const [currentPage, setCurrentPage] = useState("1")
 
     const table = useReactTable({
@@ -23,6 +24,9 @@ export const DataTable = ({ columns, data }) => {
         onColumnFiltersChange: setColumnFilters,
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
+
         initialState: {
             pagination: {
                 pageIndex: 0,
@@ -32,6 +36,7 @@ export const DataTable = ({ columns, data }) => {
         state: {
             columnFilters,
             globalFilter,
+            sorting,
         }
     })
 
@@ -43,9 +48,11 @@ export const DataTable = ({ columns, data }) => {
     const handleManualPagination = (e) => {
         let inputValue = e.target.value
         if (inputValue.length !== 0 && (inputValue > table.getPageCount() || Number(inputValue) <= 0 || isNaN(Number(inputValue)))) { 
+            e.target.classList.remove("focus-visible:ring-ring") 
             e.target.classList.add("focus-visible:ring-red-400") 
         } else { 
             e.target.classList.remove("focus-visible:ring-red-400") 
+            e.target.classList.add("focus-visible:ring-ring") 
         }                    
         inputValue.length !== 0 && Number(inputValue) > 0 ? table.setPageIndex(Number(inputValue - 1)) : null
         setCurrentPage(inputValue)
@@ -102,7 +109,7 @@ export const DataTable = ({ columns, data }) => {
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                    <TableHead key={header.id}>
+                                    <TableHead key={header.id} className="text-center">
                                         {header.isPlaceholder ? null
                                         : flexRender(
                                             header.column.columnDef.header,
@@ -117,7 +124,7 @@ export const DataTable = ({ columns, data }) => {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                <TableRow key={row.id} className="text-center" data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
