@@ -96,3 +96,30 @@ form {
 	padding: 60%;
 	transform: translateX(-50%) translateY(-50%);
 }
+
+
+/* Dialog */
+dialog.dialog-custom {
+    padding: 1.25rem 1.5rem;
+}
+.dialog-custom button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+.dialog-custom .btn-close__icon {
+	padding: .25rem;
+}
+.dialog-custom button:hover {
+    border-color: #646cff;
+}
+.dialog-custom button:focus,
+.dialog-custom button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}

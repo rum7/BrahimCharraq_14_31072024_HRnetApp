@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { formSchema, defaultFormValues } from '@/data/formSchema'
 import { states, departments } from '@/data/formCreationData'
 
@@ -9,9 +11,23 @@ import { Form } from "@/components/ui/form"
 import { Datepicker } from '@/components/form/Datepicker'
 import { InputField } from '@/components/form/InputField'
 import { InputSelect } from '@/components/form/InputSelect'
-
+import { Dialog } from "@rum7/react-dialog"
 
 export const FormEmployes = () => {
+    const navigate = useNavigate();
+
+    const [isDialogOpen, setisDialogOpen] = useState(false)
+    const toggleDialog = () => setisDialogOpen(!isDialogOpen)
+    const valueDialogSettings = {
+        isDialogOpen: isDialogOpen,
+        onClose: toggleDialog,
+        dialogTitle: "Employee created",
+        dialogText: "A new employee has been created and added to the database.",
+        btnCloseType: "iconBtn",
+        btnCloseLabel: "View employees",
+        customClass: "dialog-custom"
+    }
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: defaultFormValues
@@ -21,18 +37,6 @@ export const FormEmployes = () => {
         fromyear: new Date().getFullYear() - 50,
         toyear: new Date().getFullYear() + 50
     }
-
-    // function onSubmit(data) {
-    //     console.log('data.firstname: ', data.firstname)
-    //     console.log('data.lastname: ', data.lastname)
-    //     console.log('data.dateofbirth: ', data.dateofbirth.toLocaleDateString())
-    //     console.log('data.startdate: ', data.startdate.toLocaleDateString())
-    //     console.log('data.street: ', data.street)
-    //     console.log('data.city: ', data.city)
-    //     console.log('data.state: ', data.state)
-    //     console.log('data.zipcode: ', data.zipcode)
-    //     console.log('data.department: ', data.department)
-    // }
 
     function onSubmit(data) {
         const newUser = {
@@ -50,8 +54,16 @@ export const FormEmployes = () => {
         const existingUsers = JSON.parse(localStorage.getItem('users')) || []
         const updatedUsers = [...existingUsers, newUser]
         localStorage.setItem('users', JSON.stringify(updatedUsers))
-    }
+        toggleDialog()
 
+        const btnClose = document.querySelector('.dialog-custom button')
+        btnClose.addEventListener("click", function redirect() {
+            console.log('btnClose: ', btnClose)
+            btnClose.removeEventListener("click", redirect)
+            navigate('/currentEmployees', {replace: true})
+        })
+    }
+    
     return (
         <>
             <Form {...form}>
@@ -71,6 +83,8 @@ export const FormEmployes = () => {
                     <Button type="submit" variant="formSubmit">Submit</Button>
                 </form>
             </Form>
+
+            <Dialog value={valueDialogSettings} />
         </>
       )
 }
