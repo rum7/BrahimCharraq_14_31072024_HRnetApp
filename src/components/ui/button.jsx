@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        formSubmit: "min-w-[calc(100%/3)] self-end text-white border border-[#38943d] bg-[#38943d] hover:bg-[hsl(123,45%,30%)] hover:text-white",
+        formSubmit: "min-w-[calc(100%/3)] self-end text-white border border-[#2A652A] bg-[#2A652A] hover:bg-[hsl(123,45%,30%)] hover:text-white",
       },
       size: {
         default: "h-10 px-4 py-2",

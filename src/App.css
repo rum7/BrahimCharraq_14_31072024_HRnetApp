@@ -54,50 +54,6 @@ form {
     }
 }
 
-
-.background {
-	position: fixed;
-	overflow: hidden;
-	width: 100%;
-	height: 100vh;
-	top: 0;
-	left: 0;
-	background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(73, 178, 210) 35%, rgb(100, 172, 176) 100%);
-	display: flex;
-	z-index: -1;
-	opacity: 0.5;
-}
-.background div {
-	position: absolute;
-	border-radius: 100%;
-	height: 0;
-	filter: blur(240vw);
-	opacity: 0.5;
-}
-.background div:nth-child(1) {
-	background: rgba(255, 213, 113, 0.9);
-	left: 50%;
-	top: 50%;
-	padding: 40%;
-	transform: translateX(-50%) translateY(-50%);
-	mix-blend-mode: lighten;
-}
-.background div:nth-child(2) {
-	background: rgba(255, 255, 255, 0.81);
-	left: 8%;
-	top: 33%;
-	transform: translateX(-50%) translateY(-50%);
-	padding: 44%;
-}
-.background div:nth-child(3) {
-	background: rgb(105, 221, 188);
-	left: 100%;
-	top: 59%;
-	padding: 60%;
-	transform: translateX(-50%) translateY(-50%);
-}
-
-
 /* Dialog */
 dialog.dialog-custom {
     padding: 1.25rem 1.5rem;

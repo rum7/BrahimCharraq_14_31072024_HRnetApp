@@ -9,18 +9,18 @@ export const InputSelect = ({ form, label, name, data}) => {
                 name={name}
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>{label}</FormLabel>
-                    <Select onValueChange={field.onChange}>
-                        <FormControl>
-                            <SelectTrigger>
-                                <SelectValue placeholder={`Select a ${name}`} />
-                            </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            {dataSelect(name, data)}
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
+                        <FormLabel>{label}</FormLabel>
+                        <Select name={name} onValueChange={field.onChange}>
+                            <FormControl>
+                                <SelectTrigger aria-label={`button for ${name}`}>
+                                    <SelectValue placeholder={`Select a ${name}`} />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {dataSelect(name, data)}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
                     </FormItem>
                 )}
             />

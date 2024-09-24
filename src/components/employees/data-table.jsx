@@ -153,7 +153,7 @@ export const DataTable = ({ columns, data }) => {
                             table.setPageSize(Number(value))
                             }}
                         >
-                            <SelectTrigger className="h-8 w-[70px]">
+                            <SelectTrigger className="h-8 w-[70px]" aria-label="button for rows per page">
                             <SelectValue placeholder={table.getState().pagination.pageSize} />
                             </SelectTrigger>
                             <SelectContent side="top">
@@ -172,6 +172,7 @@ export const DataTable = ({ columns, data }) => {
                                 <Input 
                                     id="inputPagination"
                                     name="inputPagination"
+                                    aria-label="input for pagination"
                                     className="h-8 w-[50px] text-center" 
                                     value={currentPage}
                                     onChange={handleManualPagination}

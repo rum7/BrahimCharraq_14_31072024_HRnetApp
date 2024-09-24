@@ -3,7 +3,7 @@ import { FormEmployes } from '@/components/form/FormEmployes'
 import { AppBackground } from '@/components/ui/app-background'
 import { NavLink } from 'react-router-dom'
 
-const linkStyles = 'relative top-[0px] text-xs text-lime-700/50 hover:text-lime-600 transition-colors ease-in-out duration-250'
+const linkStyles = 'relative top-[0px] text-xs text-[#2A652A] hover:text-lime-600 transition-colors ease-in-out duration-250'
 
 export const Home = () => {
     return (
