@@ -6,7 +6,6 @@
 ## Project Overview
 
 A internal HR management tool developed with jQuery, which I've been asked to transform into a brand new React application.
-In this project I've been challenged to create a landing page for a dashboard. I tried to build something clean, readable avoiding too much information for the user. 
 
 
 ## Technology Stack
