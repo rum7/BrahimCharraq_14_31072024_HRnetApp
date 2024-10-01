@@ -13,11 +13,10 @@ export const CurrentEmployees = () => {
                 <main className='w-full flex flex-col items-center gap-4'>
                     <header className='w-full flex items-center justify-center px-[.8rem]'>
                         <h1 className='text-2xl font-bold'>Current employees</h1>
-                        {/* <NavLink to='/' className={linkStyles}>home</NavLink> */}
                     </header>
                     <TableEmployees />
                 </main>
-                <NavLink to='/' className={linkStyles}>home</NavLink>
+                <NavLink to='/' className={linkStyles}>Add a new employee</NavLink>
             </div>
             <AppBackground />
         </>

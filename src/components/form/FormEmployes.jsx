@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { formSchema, defaultFormValues } from '@/data/formSchema'
 import { states, departments } from '@/data/formCreationData'
+import { useEmployeesStore } from '@/stores/employeesStore'
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,7 +14,6 @@ import { InputSelect } from '@/components/form/InputSelect'
 import { Dialog } from "@rum7/react-dialog"
 
 export const FormEmployes = () => {
-    const navigate = useNavigate();
 
     const [isDialogOpen, setisDialogOpen] = useState(false)
     const toggleDialog = () => setisDialogOpen(!isDialogOpen)
@@ -23,8 +22,8 @@ export const FormEmployes = () => {
         onClose: toggleDialog,
         dialogTitle: "Employee created",
         dialogText: "A new employee has been created and added to the database.",
-        btnCloseType: "iconBtn",
-        btnCloseLabel: "View employees",
+        btnCloseType: "textBtn",
+        btnCloseLabel: "Close",
         customClass: "dialog-custom"
     }
 
@@ -32,12 +31,13 @@ export const FormEmployes = () => {
         resolver: zodResolver(formSchema),
         defaultValues: defaultFormValues
     })
-    
+
     const dateRange = {
         fromyear: new Date().getFullYear() - 50,
         toyear: new Date().getFullYear() + 50
     }
 
+    const addEmployee = useEmployeesStore((state) => state.addEmployee)
     function onSubmit(data) {
         const newUser = {
             firstname: data.firstname,
@@ -51,19 +51,13 @@ export const FormEmployes = () => {
             department: data.department,
         }
 
-        const existingUsers = JSON.parse(localStorage.getItem('users')) || []
-        const updatedUsers = [...existingUsers, newUser]
-        localStorage.setItem('users', JSON.stringify(updatedUsers))
-        toggleDialog()
+        addEmployee(newUser)
 
-        const btnClose = document.querySelector('.dialog-custom button')
-        btnClose.addEventListener("click", function redirect() {
-            console.log('btnClose: ', btnClose)
-            btnClose.removeEventListener("click", redirect)
-            navigate('/currentEmployees', {replace: true})
-        })
-    }
-    
+        toggleDialog()
+        
+        form.reset()
+    }  
+
     return (
         <>
             <Form {...form}>

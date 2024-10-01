@@ -1,16 +1,19 @@
 import { CaretSortIcon } from "@radix-ui/react-icons"
 import { Button } from "../ui/button"
 
+
 export const columns = [
     {
         accessorKey: "firstname",
+        size: `10%`,
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="data-[state=open]:bg-accent"
                 >
-                    Firstname
+                    First name
                     <CaretSortIcon className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -18,13 +21,14 @@ export const columns = [
     },
     {
         accessorKey: "lastname",
+        size: `10%`,
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Lastname
+                    Last name
                     <CaretSortIcon className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -32,6 +36,7 @@ export const columns = [
     },
     {
         accessorKey: "dateofbirth",
+        size: `10%`,
         header: ({ column }) => {
             return (
                 <Button
@@ -50,7 +55,68 @@ export const columns = [
         },
     },
     {
+        accessorKey: "street",
+        size: `18%`,
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Street
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "city",
+        size: `12%`,
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    City
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "state",
+        size: `10%`,
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    State
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "zipcode",
+        size: `10%`,
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Zip code
+                    <CaretSortIcon className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
         accessorKey: "department",
+        size: `10%`,
         header: ({ column }) => {
             return (
                 <Button
@@ -65,6 +131,7 @@ export const columns = [
     },
     {
         accessorKey: "startdate",
+        size: `10%`,
         header: ({ column }) => {
             return (
                 <Button
@@ -82,62 +149,6 @@ export const columns = [
             return dateB - dateA
         },
     },
-    {
-        accessorKey: "street",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Street
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },
-    {
-        accessorKey: "city",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    City
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },
-    {
-        accessorKey: "state",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    State
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },
-    {
-        accessorKey: "zipcode",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Zip code
-                    <CaretSortIcon className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },    
 ]
 
 function parseDate(dateString) {

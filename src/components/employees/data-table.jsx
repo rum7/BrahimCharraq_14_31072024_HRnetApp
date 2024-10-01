@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
@@ -41,7 +42,7 @@ export const DataTable = ({ columns, data }) => {
     })
 
     const customFilter = (row, id, filterValue) => {
-        const terms = filterValue.replace(/[^\p{L}\s]/gu, '').toLowerCase().split(' ').filter(Boolean)
+        const terms = filterValue.replace(/[^\p{L}\d\s/]/gu, '').toLowerCase().split(' ').filter(Boolean)
         return terms.some(term => String(row.getValue(id)).toLowerCase().includes(term))
     }  
 
@@ -91,25 +92,42 @@ export const DataTable = ({ columns, data }) => {
     return (
         <>
             {/* SEARCH */}
-            <div className="flex items-center jus space-x-2">
-                <Input
-                    name="search"
-                    placeholder="Search..."
-                    value={globalFilter ?? ""}
-                    onChange={(event) => table.setGlobalFilter(String(event.target.value))}
-                    className="max-w-sm"
-                />
+            <div className="flex items-center space-x-2 w-">
+                <div className="relative basis-96">
+                    <Input
+                        name="search"
+                        placeholder="Search..."
+                        value={globalFilter ?? ""}
+                        onChange={(event) => table.setGlobalFilter(String(event.target.value))}
+                        className=""
+                    />
+                    {globalFilter && (
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-9 h-8 rounded-sm absolute right-1 top-1/2 -translate-y-1/2"
+                            onClick={() => setGlobalFilter('')}
+                            aria-label="Clear input"
+                        >
+                            <X className="h-4 w-4" />
+                        </Button>
+                    )}
+                </div>
                 <p className="flex-1 text-end text-sm text-muted-foreground">Total : {table.getFilteredRowModel().rows.length} employees</p>
             </div>
             {/* TABLE */}
-            <div className="rounded-md border my-4">
+            <div className="rounded-md border my-4 px-0">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                    <TableHead key={header.id} className="text-center">
+                                    <TableHead 
+                                        key={header.id}
+                                        className={`px-1`}
+                                        style={{ width: header.column.columnDef.size }}
+                                    >
                                         {header.isPlaceholder ? null
                                         : flexRender(
                                             header.column.columnDef.header,
@@ -124,9 +142,12 @@ export const DataTable = ({ columns, data }) => {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} className="text-center" data-state={row.getIsSelected() && "selected"}>
+                                <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell 
+                                            key={cell.id} 
+                                            className="pl-5 h-[73px]"
+                                        >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -134,7 +155,7 @@ export const DataTable = ({ columns, data }) => {
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} className="h-48 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>

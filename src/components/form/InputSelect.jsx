@@ -10,7 +10,7 @@ export const InputSelect = ({ form, label, name, data}) => {
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>{label}</FormLabel>
-                        <Select name={name} onValueChange={field.onChange}>
+                        <Select name={name} onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                                 <SelectTrigger aria-label={`button for ${name}`}>
                                     <SelectValue placeholder={`Select a ${name}`} />
